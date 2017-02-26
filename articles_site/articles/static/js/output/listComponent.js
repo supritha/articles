@@ -7,27 +7,31 @@ var ArticleListView = React.createClass({
 		this.props.onClick(data);
 	},
 	render: function render() {
-		var self = this;
-		var previewArticle = this.props.data[Math.floor(Math.random() * this.props.data.length)];
+		if (this.props.data.length) {
+			var self = this;
+			var previewArticle = this.props.data[Math.floor(Math.random() * this.props.data.length)];
 
-		var articles = this.props.data.map(function (singleData, index) {
-			return React.createElement(SingleArticle, { data: singleData, index: index + 1, onClick: self.onClick });
-		});
+			var articles = this.props.data.map(function (singleData, index) {
+				return React.createElement(SingleArticle, { data: singleData, index: index + 1, onClick: self.onClick });
+			});
 
-		return React.createElement(
-			"div",
-			{ id: "id1" },
-			React.createElement(ArticleRandomPreview, { data: previewArticle }),
-			React.createElement(
+			return React.createElement(
 				"div",
-				{ className: "row marketing", id: "articles" },
+				{ id: "id1" },
+				React.createElement(ArticleRandomPreview, { data: previewArticle }),
 				React.createElement(
 					"div",
-					{ className: "col-12" },
-					articles
+					{ className: "row marketing", id: "articles" },
+					React.createElement(
+						"div",
+						{ className: "col-12" },
+						articles
+					)
 				)
-			)
-		);
+			);
+		}
+
+		return null;
 	}
 });
 

@@ -3,23 +3,27 @@ var ArticleListView = React.createClass({
 		this.props.onClick(data);
 	},
 	render: function() {
-		var self = this;
-		var previewArticle = this.props.data[Math.floor(Math.random() * this.props.data.length)];
+		if (this.props.data.length) {
+			var self = this;
+			var previewArticle = this.props.data[Math.floor(Math.random() * this.props.data.length)];
 
-		const articles = this.props.data.map((singleData, index) =>
+			const articles = this.props.data.map((singleData, index) =>
 				<SingleArticle data={singleData} index={index + 1} onClick={self.onClick}/>
 			)
 
-		return (
-			<div id="id1">
-				<ArticleRandomPreview data={previewArticle} />
-				<div className="row marketing" id="articles">
-					<div className="col-12">
-						{articles}
+			return (
+				<div id="id1">
+					<ArticleRandomPreview data={previewArticle} />
+					<div className="row marketing" id="articles">
+						<div className="col-12">
+							{articles}
+						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		} 
+
+		return null;
 	}
 });
 

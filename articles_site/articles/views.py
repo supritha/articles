@@ -79,4 +79,18 @@ class ArticleViewSet(APIView):
 		article_id = request.GET.get('article_id')
 		return Response(self.get_json_data(article_id))
 
+class ArticleSearchViewSet(APIView):
+	"""
+	A view that returns the count of active users in JSON.
+	"""
+	renderer_classes = (JSONRenderer, )
+
+	def get(self, request, format=None):
+		article_title = request.GET.get('q')
+		queryset = Article.objects.raw('SELECT * FROM articles_article where title LIKE %s', ['%%' + article_title + '%%'])
+		serializer = ArticleSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+
+
 
