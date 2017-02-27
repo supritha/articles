@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import permissions
+
 
 
 import json
@@ -41,6 +43,7 @@ class ArticleRandomViewSet(APIView):
 	A view that returns the count of active users in JSON.
 	"""
 	renderer_classes = (JSONRenderer, )
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 	def get_json_data(self):
 		queryset = Article.objects.raw('SELECT * FROM articles_article ORDER BY Random() LIMIT 4')
@@ -55,6 +58,7 @@ class ArticleListViewSet(APIView):
 	A view that returns the count of active users in JSON.
 	"""
 	renderer_classes = (JSONRenderer, )
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 	def get_json_data(self):
 		queryset = Article.objects.order_by('published_date')
@@ -69,6 +73,7 @@ class ArticleViewSet(APIView):
 	A view that returns the count of active users in JSON.
 	"""
 	renderer_classes = (JSONRenderer, )
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 	def get_json_data(self, article_id):
 		queryset = Article.objects.get(article_id=article_id)
@@ -84,6 +89,7 @@ class ArticleSearchViewSet(APIView):
 	A view that returns the count of active users in JSON.
 	"""
 	renderer_classes = (JSONRenderer, )
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 	def get(self, request, format=None):
 		article_title = request.GET.get('q')
